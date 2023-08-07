@@ -1,5 +1,8 @@
-# Badger 2040 & Badger 2040 W <!-- omit in toc -->
-## Firmware, Examples & Documentation <!-- omit in toc -->
+# Badger 2040
+
+This is a fork for my personal badge
+
+## Firmware, Examples & Documentation
 
 Badger 2040 and Badger 2040 W are maker-friendly all-in-one badge wearables, featuring a 2.9", 296x128 pixel, monochrome e-paper display.
 
