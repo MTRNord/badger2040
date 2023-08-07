@@ -1,7 +1,7 @@
-mustelid inc
-H. Badger
-RP2040
-2MB Flash
-E ink
-296x128px
+Matrix Community
+MTRNord
+Software Developer
+
+They/Them
+
 /badges/badge.jpg
