@@ -9,16 +9,15 @@ HEIGHT = badger2040.HEIGHT
 IMAGE_WIDTH = 104
 
 COMPANY_HEIGHT = 30
-DETAILS_HEIGHT = 20
+DETAILS_HEIGHT = 30
 NAME_HEIGHT = HEIGHT - COMPANY_HEIGHT - (DETAILS_HEIGHT * 2) - 2
 TEXT_WIDTH = WIDTH - IMAGE_WIDTH - 1
 
-COMPANY_TEXT_SIZE = 0.6
-DETAILS_TEXT_SIZE = 0.5
+COMPANY_TEXT_SIZE = 2.0
+DETAILS_TEXT_SIZE = 2.0
 
 LEFT_PADDING = 5
 NAME_PADDING = 20
-DETAIL_SPACING = 10
 
 BADGE_PATH = "/badges/badge.txt"
 
@@ -73,17 +72,17 @@ def draw_badge():
 
     # Draw the company
     display.set_pen(15)  # Change this to 0 if a white background is used
-    display.set_font("serif")
+    display.set_font("bitmap8")
     display.text(company, LEFT_PADDING, (COMPANY_HEIGHT // 2) + 1, WIDTH, COMPANY_TEXT_SIZE)
 
     # Draw a white background behind the name
     display.set_pen(15)
-    display.rectangle(1, COMPANY_HEIGHT + 1, TEXT_WIDTH, NAME_HEIGHT)
+    display.rectangle(1, COMPANY_HEIGHT + 1, TEXT_WIDTH, NAME_HEIGHT+10)
 
     # Draw the name, scaling it based on the available width
     display.set_pen(0)
-    display.set_font("sans")
-    name_size = 2.0  # A sensible starting scale
+    display.set_font("bitmap8")
+    name_size = 4.0  # A sensible starting scale
     while True:
         name_length = display.measure_text(name, name_size)
         if name_length >= (TEXT_WIDTH - NAME_PADDING) and name_size >= 0.1:
@@ -94,20 +93,18 @@ def draw_badge():
 
     # Draw a white backgrounds behind the details
     display.set_pen(15)
-    display.rectangle(1, HEIGHT - DETAILS_HEIGHT * 2, TEXT_WIDTH, DETAILS_HEIGHT - 1)
-    display.rectangle(1, HEIGHT - DETAILS_HEIGHT, TEXT_WIDTH, DETAILS_HEIGHT - 1)
+    display.rectangle(1, HEIGHT - DETAILS_HEIGHT * 2 + 10, TEXT_WIDTH, DETAILS_HEIGHT - 10)
+    display.rectangle(1, HEIGHT - DETAILS_HEIGHT+1, TEXT_WIDTH, DETAILS_HEIGHT - 2)
 
     # Draw the first detail's title and text
     display.set_pen(0)
-    display.set_font("sans")
+    display.set_font("bitmap8")
     name_length = display.measure_text(detail1_title, DETAILS_TEXT_SIZE)
     display.text(detail1_title, LEFT_PADDING, HEIGHT - ((DETAILS_HEIGHT * 3) // 2), WIDTH, DETAILS_TEXT_SIZE)
-    display.text(detail1_text, 5 + name_length + DETAIL_SPACING, HEIGHT - ((DETAILS_HEIGHT * 3) // 2), WIDTH, DETAILS_TEXT_SIZE)
 
     # Draw the second detail's title and text
     name_length = display.measure_text(detail2_title, DETAILS_TEXT_SIZE)
     display.text(detail2_title, LEFT_PADDING, HEIGHT - (DETAILS_HEIGHT // 2), WIDTH, DETAILS_TEXT_SIZE)
-    display.text(detail2_text, LEFT_PADDING + name_length + DETAIL_SPACING, HEIGHT - (DETAILS_HEIGHT // 2), WIDTH, DETAILS_TEXT_SIZE)
 
     display.update()
 
@@ -145,13 +142,9 @@ badge_image = badge.readline()    # /badges/badge.jpg
 # Truncate all of the text (except for the name as that is scaled)
 company = truncatestring(company, COMPANY_TEXT_SIZE, TEXT_WIDTH)
 
-detail1_title = truncatestring(detail1_title, DETAILS_TEXT_SIZE, TEXT_WIDTH)
-detail1_text = truncatestring(detail1_text, DETAILS_TEXT_SIZE,
-                              TEXT_WIDTH - DETAIL_SPACING - display.measure_text(detail1_title, DETAILS_TEXT_SIZE))
+detail1_title = truncatestring(detail1_title, DETAILS_TEXT_SIZE, TEXT_WIDTH+15)
 
 detail2_title = truncatestring(detail2_title, DETAILS_TEXT_SIZE, TEXT_WIDTH)
-detail2_text = truncatestring(detail2_text, DETAILS_TEXT_SIZE,
-                              TEXT_WIDTH - DETAIL_SPACING - display.measure_text(detail2_title, DETAILS_TEXT_SIZE))
 
 
 # ------------------------------
