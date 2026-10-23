@@ -15,7 +15,8 @@ NAME_HEIGHT = HEIGHT - COMPANY_HEIGHT - (DETAILS_HEIGHT * 2) - 2
 TEXT_WIDTH = WIDTH - IMAGE_WIDTH - 1
 
 COMPANY_TEXT_SIZE = 2.0
-DETAILS_TEXT_SIZE = 2.0
+DETAILS_TEXT_SIZE = 0.55
+DETAILS_FONT = "sans"
 
 LEFT_PADDING = 5
 NAME_PADDING = 20
@@ -104,13 +105,14 @@ def draw_badge():
 
     # Draw the first detail's title and text
     display.set_pen(0)
-    display.set_font("bitmap8")
+    display.set_font(DETAILS_FONT)
+    # Vector fonts are positioned by their vertical centre, so use the middle of each row
     name_length = display.measure_text(detail1_title, DETAILS_TEXT_SIZE)
-    display.text(detail1_title, LEFT_PADDING, HEIGHT - ((DETAILS_HEIGHT * 3) // 2), WIDTH, DETAILS_TEXT_SIZE)
+    display.text(detail1_title, LEFT_PADDING, HEIGHT - DETAILS_HEIGHT * 2 + 10 + (DETAILS_HEIGHT - 10) // 2, WIDTH, DETAILS_TEXT_SIZE)
 
     # Draw the second detail's title and text
     name_length = display.measure_text(detail2_title, DETAILS_TEXT_SIZE)
-    display.text(detail2_title, LEFT_PADDING, HEIGHT - (DETAILS_HEIGHT // 2), WIDTH, DETAILS_TEXT_SIZE)
+    display.text(detail2_title, LEFT_PADDING, HEIGHT - DETAILS_HEIGHT + 1 + (DETAILS_HEIGHT - 2) // 2, WIDTH, DETAILS_TEXT_SIZE)
 
     display.update()
 
@@ -149,6 +151,8 @@ badge_image = badge.readline()    # /badges/badge.jpg
 # Truncate all of the text (except for the name as that is scaled)
 company = truncatestring(company, COMPANY_TEXT_SIZE, TEXT_WIDTH)
 
+# Measure the details in the font they are drawn in
+display.set_font(DETAILS_FONT)
 detail1_title = truncatestring(detail1_title, DETAILS_TEXT_SIZE, TEXT_WIDTH+15)
 
 detail2_title = truncatestring(detail2_title, DETAILS_TEXT_SIZE, TEXT_WIDTH)
